@@ -625,7 +625,8 @@ defmodule Phoenix.Socket do
             {:reply, :error, encode_reply(socket, reply), {state, socket}}
         end
 
-      _ ->
+      error ->
+        Logger.warn("Error detected on topic: #{topic} error: #{inspect error}")
         {:reply, :error, encode_ignore(socket, message), {state, socket}}
     end
   end
@@ -659,6 +660,7 @@ defmodule Phoenix.Socket do
   end
 
   defp handle_in(nil, message, state, socket) do
+    Logger.warn("Unexpected message received on phoenix.socket")
     {:reply, :error, encode_ignore(socket, message), {state, socket}}
   end
 
