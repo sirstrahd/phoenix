@@ -660,7 +660,7 @@ defmodule Phoenix.Socket do
   end
 
   defp handle_in(nil, message, state, socket) do
-    Logger.warn("Unexpected message received on phoenix.socket")
+    Logger.warn("Unexpected message received on phoenix.socket. Message: #{inspect message} state: #{inspect state} socket: #{inspect socket}")
     {:reply, :error, encode_ignore(socket, message), {state, socket}}
   end
 
